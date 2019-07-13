@@ -1,4 +1,6 @@
 'use strict';
+var dateFormat = require('dateformat');
+
 module.exports = (sequelize, DataTypes) => {
   const Article = sequelize.define('Article', {
     title: DataTypes.STRING,
@@ -8,5 +10,14 @@ module.exports = (sequelize, DataTypes) => {
   Article.associate = function(models) {
     // associations can be defined here
   };
+
+  Article.publishedAt = () => {
+    return dateFormat(this.createdAt, "dddd, mmmm dS, yyyy, h:MM TT");
+  }
+
+  Article.shortDescription = () => {
+    return this.body.length > 30 ? this.body.substr(0, 30) + "..." : this.body;
+  }
+
   return Article;
 };
