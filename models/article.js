@@ -11,11 +11,11 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
   };
 
-  Article.publishedAt = () => {
+  Article.prototype.publishedAt = function(){
     return dateFormat(this.createdAt, "dddd, mmmm dS, yyyy, h:MM TT");
   }
 
-  Article.shortDescription = () => {
+  Article.prototype.shortDescription = function() {
     return this.body.length > 30 ? this.body.substr(0, 30) + "..." : this.body;
   }
 
